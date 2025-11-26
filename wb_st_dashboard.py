@@ -54,10 +54,10 @@ def load_single_file(filepath, level_tag):
 @st.cache_data
 def load_all_datasets():
     files = [
-        ("2011 WB State ST Data.csv", "State"),
-        ("2001 WB State ST Data.csv", "State"),
-        ("2011 WB District ST Data.csv", "District"),
-        ("2001 WB District ST Data.csv", "District")
+        ("./2011 WB State ST Data.csv", "State"),
+        ("./2001 WB State ST Data.csv", "State"),
+        ("./2011 WB District ST Data.csv", "District"),
+        ("./2001 WB District ST Data.csv", "District")
     ]
     dfs = [load_single_file(f, l) for f, l in files]
     return pd.concat([d for d in dfs if not d.empty], ignore_index=True) if dfs else pd.DataFrame()
