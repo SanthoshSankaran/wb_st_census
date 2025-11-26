@@ -219,27 +219,48 @@ def main():
     st.altair_chart(chart_rel, use_container_width=True)
 
     # ------------------------------------------
-    # SECTION 4: URBANIZATION
+    # SECTION 4: URBAN POPULATION TREND
     # ------------------------------------------
-    st.markdown("### 4. Urbanization")
-    st.caption("Proportion of population living in Urban areas. Sorted by **2011 Urban Share (Descending)**.")
+    st.markdown("### 4. Urban Population Trend")
+    st.caption("Comparison of Urban Population counts between 2001 (Light Green) and 2011 (Dark Green). Sorted by **2011 Urban Population (Descending)**.")
     
-    df_urb = df_filtered.groupby(['ST_Name', 'Year'])[['Rural_P', 'Urban_P']].sum().reset_index()
-    df_urb['Total'] = df_urb['Rural_P'] + df_urb['Urban_P']
-    df_urb['Urban_Share'] = np.where(df_urb['Total'] > 0, (df_urb['Urban_P'] / df_urb['Total']), 0)
+    df_urb = df_filtered.groupby(['ST_Name', 'Year'])[['Urban_P']].sum().reset_index()
     
-    # Sort order based on 2011 Urban Share (already descending)
-    sort_order_urb = df_urb[df_urb['Year'] == '2011'].sort_values('Urban_Share', ascending=False)['ST_Name'].tolist()
+    # Sort order based on 2011 Urban Population (descending)
+    sort_order_urb = df_urb[df_urb['Year'] == '2011'].sort_values('Urban_P', ascending=False)['ST_Name'].tolist()
     
-    # Visualization: Grouped Bar Chart
+    # Visualization: Grouped Bar Chart for Urban Population
     chart_urb = alt.Chart(df_urb).mark_bar().encode(
         x=alt.X('ST_Name', title=None, sort=sort_order_urb),
-        y=alt.Y('Urban_Share', axis=alt.Axis(format='%'), title="Urban Percentage"),
+        y=alt.Y('Urban_P', title="Urban Population", axis=alt.Axis(format='~s')),
         color=alt.Color('Year:O', scale=YEAR_COLOR_SCALE),
         xOffset=alt.XOffset('Year:N'),
-        tooltip=['ST_Name', 'Year', alt.Tooltip('Urban_Share', format='.1%')]
+        tooltip=['ST_Name', 'Year', alt.Tooltip('Urban_P', format=',.0f')]
     ).properties(height=350)
     st.altair_chart(chart_urb, use_container_width=True)
+
+    st.markdown("---")
+
+    # ------------------------------------------
+    # SECTION 5: RURAL POPULATION TREND
+    # ------------------------------------------
+    st.markdown("### 5. Rural Population Trend")
+    st.caption("Comparison of Rural Population counts between 2001 (Light Green) and 2011 (Dark Green). Sorted by **2011 Rural Population (Descending)**.")
+    
+    df_rural = df_filtered.groupby(['ST_Name', 'Year'])[['Rural_P']].sum().reset_index()
+    
+    # Sort order based on 2011 Rural Population (descending)
+    sort_order_rural = df_rural[df_rural['Year'] == '2011'].sort_values('Rural_P', ascending=False)['ST_Name'].tolist()
+    
+    # Visualization: Grouped Bar Chart for Rural Population
+    chart_rural = alt.Chart(df_rural).mark_bar().encode(
+        x=alt.X('ST_Name', title=None, sort=sort_order_rural),
+        y=alt.Y('Rural_P', title="Rural Population", axis=alt.Axis(format='~s')),
+        color=alt.Color('Year:O', scale=YEAR_COLOR_SCALE),
+        xOffset=alt.XOffset('Year:N'),
+        tooltip=['ST_Name', 'Year', alt.Tooltip('Rural_P', format=',.0f')]
+    ).properties(height=350)
+    st.altair_chart(chart_rural, use_container_width=True)
 
     # --- Data Table ---
     with st.expander("View Underlying Data"):
