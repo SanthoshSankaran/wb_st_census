@@ -1,13 +1,13 @@
 Year,State,ST Name,Religion,Persons,Male,Female,Persons (Rural),Male (Rural),Female (Rural),Persons (Urban),Male (Urban),Female (Urban)
-2011,WEST BENGAL,All Schedule Tribes,All religions,"5,296,953","2,649,974","2,646,979","4,855,115","2,428,057","2,427,058","441,838","221,917","219,921"
-2011,WEST BENGAL,All Schedule Tribes,Hindu,"3,914,473","1,963,414","1,951,059","3,593,517","1,801,551","1,791,966","320,956","161,863","159,093"
-2011,WEST BENGAL,All Schedule Tribes,Muslim,"30,407","15,590","14,817","25,555","13,070","12,485","4,852","2,520","2,332"
-2011,WEST BENGAL,All Schedule Tribes,Christian,"343,893","169,508","174,385","313,406","154,405","159,001","30,487","15,103","15,384"
-2011,WEST BENGAL,All Schedule Tribes,Sikh,"1,003",520,483,762,390,372,241,130,111
-2011,WEST BENGAL,All Schedule Tribes,Buddhist,"220,963","110,553","110,410","153,196","77,119","76,077","67,767","33,434","34,333"
-2011,WEST BENGAL,All Schedule Tribes,Jain,876,460,416,568,295,273,308,165,143
-2011,WEST BENGAL,All Schedule Tribes,Other religions and persuasions,"774,450","384,629","389,821","758,329","376,501","381,828","16,121","8,128","7,993"
-2011,WEST BENGAL,All Schedule Tribes,Religion not stated,"10,888","5,300","5,588","9,782","4,726","5,056","1,106",574,532
+2011,WEST BENGAL,All Scheduled Tribes,All religions,"5,296,953","2,649,974","2,646,979","4,855,115","2,428,057","2,427,058","441,838","221,917","219,921"
+2011,WEST BENGAL,All Scheduled Tribes,Hindu,"3,914,473","1,963,414","1,951,059","3,593,517","1,801,551","1,791,966","320,956","161,863","159,093"
+2011,WEST BENGAL,All Scheduled Tribes,Muslim,"30,407","15,590","14,817","25,555","13,070","12,485","4,852","2,520","2,332"
+2011,WEST BENGAL,All Scheduled Tribes,Christian,"343,893","169,508","174,385","313,406","154,405","159,001","30,487","15,103","15,384"
+2011,WEST BENGAL,All Scheduled Tribes,Sikh,"1,003",520,483,762,390,372,241,130,111
+2011,WEST BENGAL,All Scheduled Tribes,Buddhist,"220,963","110,553","110,410","153,196","77,119","76,077","67,767","33,434","34,333"
+2011,WEST BENGAL,All Scheduled Tribes,Jain,876,460,416,568,295,273,308,165,143
+2011,WEST BENGAL,All Scheduled Tribes,Other religions and persuasions,"774,450","384,629","389,821","758,329","376,501","381,828","16,121","8,128","7,993"
+2011,WEST BENGAL,All Scheduled Tribes,Religion not stated,"10,888","5,300","5,588","9,782","4,726","5,056","1,106",574,532
 2011,WEST BENGAL,Asur,All religions,"3,864","1,909","1,955","3,529","1,741","1,788",335,168,167
 2011,WEST BENGAL,Asur,Hindu,"3,097","1,543","1,554","2,839","1,411","1,428",258,132,126
 2011,WEST BENGAL,Asur,Muslim,32,16,16,5,3,2,27,13,14
@@ -326,4 +326,5 @@ Year,State,ST Name,Religion,Persons,Male,Female,Persons (Rural),Male (Rural),Fem
 2011,WEST BENGAL,Generic Tribes etc.,Buddhist,"9,953","5,002","4,951","7,190","3,635","3,555","2,763","1,367","1,396"
 2011,WEST BENGAL,Generic Tribes etc.,Jain,56,28,28,25,8,17,31,20,11
 2011,WEST BENGAL,Generic Tribes etc.,Other religions and persuasions,"17,816","9,104","8,712","17,482","8,928","8,554",334,176,158
+
 2011,WEST BENGAL,Generic Tribes etc.,Religion not stated,"1,706",889,817,"1,477",757,720,229,132,97
