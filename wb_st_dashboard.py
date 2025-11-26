@@ -11,15 +11,17 @@ COLUMN_MAP = {
     'Year': 'Year',
     'State': 'State',
     'District': 'District',
-    'ST Name': 'ST_Name', 'ST_Name': 'ST_Name',
-    'Religion': 'Religion_Name', 'Religion Name': 'Religion_Name',
-    'Persons': 'Total_P', 'Total': 'Total_P',
-    'Male': 'Total_M', 'Males': 'Total_M',
-    'Female': 'Total_F', 'Females': 'Total_F',
-    'Persons (Rural)': 'Rural_P', 'Rural': 'Rural_P',
-    'Male (Rural)': 'Rural_M', 'Female (Rural)': 'Rural_F',
-    'Persons (Urban)': 'Urban_P', 'Urban': 'Urban_P',
-    'Male (Urban)': 'Urban_M', 'Female (Urban)': 'Urban_F'
+    'ST Name': 'ST_Name', 
+    'Religion': 'Religion_Name', 
+    'Persons': 'Total_P', 
+    'Male': 'Total_M', 
+    'Female': 'Total_F', 
+    'Persons (Rural)': 'Rural_P', 
+    'Male (Rural)': 'Rural_M', 
+    'Female (Rural)': 'Rural_F',
+    'Persons (Urban)': 'Urban_P', 
+    'Male (Urban)': 'Urban_M', 
+    'Female (Urban)': 'Urban_F'
 }
 
 POPULATION_COLS = ['Total_P', 'Total_M', 'Total_F', 'Rural_P', 'Rural_M', 'Rural_F', 'Urban_P', 'Urban_M', 'Urban_F']
@@ -34,18 +36,19 @@ def load_single_file(filepath, level_tag):
         df = pd.read_csv(filepath)
         df = df.rename(columns={k: v for k, v in COLUMN_MAP.items() if k in df.columns})
         if 'District' not in df.columns: df['District'] = 'All Districts'
-        df['Year'] = df.get('Year', pd.Series(['Unknown'] * len(df))).astype(str).str.replace(r'[",\s]', '', regex=True)
+        if 'Year' in df.columns:
+            df['Year'] = df['Year'].astype(str).str.replace(r'[",\s]', '', regex=True)
+        else:
+            df['Year'] = 'Unknown'
         df['Level'] = level_tag
         
-        for col in [c for col in POPULATION_COLS if col in df.columns]:
+        for col in [c for c in POPULATION_COLS if c in df.columns]:
             df[col] = df[col].astype(str).str.replace(r'[",\s]', '', regex=True)
             df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
             
         if 'ST_Name' in df.columns:
-            df = df.dropna(subset=['ST_Name'])
-            df = df[~df['ST_Name'].astype(str).str.contains('All Schedule', case=False, na=False)]
+            df = df[df['ST_Name'].notna()]
         if 'Religion_Name' in df.columns:
-            df = df[~df['Religion_Name'].astype(str).str.contains('All religion', case=False, na=False)]
             df['Religion_Name'] = df['Religion_Name'].astype(str).str.replace('Budhists', 'Buddhists', case=False)
             
         return df.drop(columns=['ST Code', 'ST_Code'], errors='ignore')
@@ -53,14 +56,23 @@ def load_single_file(filepath, level_tag):
 
 @st.cache_data
 def load_all_datasets():
+    base_path = "./"
     files = [
-        ("./2011 WB State ST Data.csv", "State"),
-        ("./2001 WB State ST Data.csv", "State"),
-        ("./2011 WB District ST Data.csv", "District"),
-        ("./2001 WB District ST Data.csv", "District")
+        (base_path + "2011 WB State ST Data.csv", "State"),
+        (base_path + "2001 WB State ST Data.csv", "State"),
+        (base_path + "2011 WB District ST Data.csv", "District"),
+        (base_path + "2001 WB District ST Data.csv", "District")
     ]
     dfs = [load_single_file(f, l) for f, l in files]
-    return pd.concat([d for d in dfs if not d.empty], ignore_index=True) if dfs else pd.DataFrame()
+    
+    # Filter out empty dataframes and check if the resulting list is empty before concatenation
+    non_empty_dfs = [d for d in dfs if not d.empty]
+    
+    if not non_empty_dfs:
+        # If the list is empty (no files loaded successfully), return an empty DataFrame
+        return pd.DataFrame()
+    
+    return pd.concat(non_empty_dfs, ignore_index=True)
 
 # --- Main Dashboard ---
 def main():
